@@ -1,3 +1,5 @@
+import ReadMe.MysqlDeveloper;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,6 +15,7 @@ import java.sql.Statement;
 
 
 public class LoginPage implements ActionListener {
+    MysqlDeveloper developer = new MysqlDeveloper();
     Connection connection = null;
     Statement statement = null;
     ResultSet rs = null;
@@ -40,7 +43,7 @@ public class LoginPage implements ActionListener {
         signUpButton.addActionListener(this);
         signUpButton.setFocusable(false);
 
-        messageLabel.setBounds(0,0,300,270);
+        messageLabel.setBounds(0,0,300,300);
         messageLabel.setFont(new Font(null, Font.BOLD,25));
         messageLabel.setForeground(Color.white);
         messageLabel.setText("<html>Welcome to <br/>Quiz System</html>");
@@ -85,7 +88,7 @@ public class LoginPage implements ActionListener {
     }
     public boolean loginCheck (String email, String password){
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/quiz_system_database", "root", "123456");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:"+developer.getHostname()+"/quiz_system_database", developer.getUser(), developer.getPassword());
             statement = connection.createStatement();
             rs = statement.executeQuery("Select passcode From clients c Where c.email =" + "'" +email+"'");
             rs.next();
@@ -114,7 +117,7 @@ public class LoginPage implements ActionListener {
                     }
             else if (loginCheck(email, password)) {
                 try {
-                    connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/quiz_system_database", "root", "123456");
+                    connection = DriverManager.getConnection("jdbc:mysql://localhost:"+developer.getHostname()+"/quiz_system_database", developer.getUser(), developer.getPassword());
                     statement = connection.createStatement();
                     rs = statement.executeQuery("Select client_id From clients c Where c.email =" + "'" + email + "'");
                     rs.next();
