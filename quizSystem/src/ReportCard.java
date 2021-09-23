@@ -1,3 +1,5 @@
+import ReadMe.MysqlDeveloper;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -10,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ReportCard implements ActionListener {
+    MysqlDeveloper developer = new MysqlDeveloper();
     Connection connection = null;
     Statement statement = null;
     ResultSet rs = null;
@@ -104,7 +107,7 @@ public class ReportCard implements ActionListener {
         ArrayList<String> date = new ArrayList<>();
         ArrayList<String> subjectName = new ArrayList<>();
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/quiz_system_database", "root", "123456");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:"+developer.getHostname()+"/quiz_system_database", developer.getUser(), developer.getPassword());
             statement = connection.createStatement();
             rs = statement.executeQuery(
                     "Select q.grade, d.name As difficulty, q.date, s.name As subject\n" +

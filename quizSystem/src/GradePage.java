@@ -35,17 +35,17 @@ public class GradePage implements ActionListener {
             messageLabel2.setText("Excellent! You are the best!");
         }
         else if (score == 9) {
-            gradeLabel.setBounds(110,60,220,65);
+            gradeLabel.setBounds(110,60,220,75);
             gradeLabel.setForeground(new Color(121, 243, 115));
             messageLabel2.setText("Excellent! You are the best!");
         }
         else if (score < 9 && score > 6) {
-            gradeLabel.setBounds(110,60,220,65);
+            gradeLabel.setBounds(110,60,220,70);
             gradeLabel.setForeground(new Color(186, 212, 26));
             messageLabel2.setText("Good Job! You can do better!");
         }
         else if (score < 7) {
-            gradeLabel.setBounds(110,50,220,65);
+            gradeLabel.setBounds(110,50,220,70);
             gradeLabel.setForeground(new Color(253, 122, 26));
             messageLabel2.setText("You can do better next time.");
         }

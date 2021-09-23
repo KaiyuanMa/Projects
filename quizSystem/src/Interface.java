@@ -17,7 +17,7 @@ public class Interface implements ActionListener {
         this.email = email;
         welcome.setText("<html>Welcome," + "<br/>"+email +"<br/><br/>" +
                 "What would you like to do today?</html>");
-        welcome.setBounds(0,0,300,270);
+        welcome.setBounds(0,0,300,300);
         welcome.setFont(new Font(null, Font.BOLD,25));
         welcome.setForeground(Color.white);
         welcome.setBackground(new Color(169,5,50));

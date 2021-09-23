@@ -1,3 +1,5 @@
+import ReadMe.MysqlDeveloper;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 
 public class SignUpPage implements ActionListener {
+    MysqlDeveloper developer = new MysqlDeveloper();
     Connection connection = null;
     Statement statement = null;
     ResultSet rs = null;
@@ -53,7 +56,7 @@ public class SignUpPage implements ActionListener {
     JButton cancelButton = new JButton("Cancel");
 
     SignUpPage(){
-        text.setBounds(0,0,200,462);
+        text.setBounds(0,0,200,500);
         text.setText("<html>Please<br/>enter<br/>your<br/>information</html>");
         text.setFont(new Font(null, Font.BOLD,30));
         text.setForeground(Color.white);
@@ -68,7 +71,7 @@ public class SignUpPage implements ActionListener {
         passwordLabel.setBounds(220,70,70,25);
         passwordField.setBounds(220,90,150,25);
 
-        confirmPasswordLabel.setBounds(220,120,110,25);
+        confirmPasswordLabel.setBounds(220,120,130,25);
         confirmPasswordField.setBounds(220,140,150,25);
 
         planLabel.setBounds(220,180,150,25);
@@ -82,16 +85,16 @@ public class SignUpPage implements ActionListener {
         group.add(plan1Button);
         group.add(plan2Button);
         group.add(plan3Button);
-        plan1Button.setBounds(240,200,160,25);
-        plan2Button.setBounds(240,220,180,25);
-        plan3Button.setBounds(240,240,160,25);
+        plan1Button.setBounds(240,200,200,25);
+        plan2Button.setBounds(240,220,200,25);
+        plan3Button.setBounds(240,240,200,25);
 
         CardLabel.setBounds(220,280,140,25);
         cardField.setBounds(220,300,150,25);
 
         DateLabel.setBounds(220,330,100,25);
         monthLabel.setBounds(220,355,50,25);
-        monthBox.setBounds(220,375,50,25);
+        monthBox.setBounds(220,375,80,25);
         yearLabel.setBounds(300,355,50,25);
         yearField.setBounds(300,375,50,25);
         CCVLabel.setBounds(220,400,50,25);
@@ -144,7 +147,7 @@ public class SignUpPage implements ActionListener {
 
     public boolean EmailInUse(String email) throws FileNotFoundException {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/quiz_system_database", "root", "123456");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:"+developer.getHostname()+"/quiz_system_database", developer.getUser(), developer.getPassword());
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("Select * From clients c Where c.email =" +email);
             return rs.next();
@@ -217,7 +220,7 @@ public class SignUpPage implements ActionListener {
                         ActionRequiredPage a = new ActionRequiredPage(10);
                     } else {
                         try {
-                            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/quiz_system_database", "root", "123456");
+                            connection = DriverManager.getConnection("jdbc:mysql://localhost:"+developer.getHostname()+"/quiz_system_database", developer.getUser(), developer.getPassword());
                             statement = connection.createStatement();
                             statement.executeUpdate("Insert Into clients Values (Default,"+email+","+
                                     "'"+toHexString(getSHA(password))+"'"+","+Plan+","+cardNumber+","+expDate+","+CVV+","+"Default,Default,Default)");

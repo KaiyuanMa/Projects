@@ -1,3 +1,5 @@
+import ReadMe.MysqlDeveloper;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class QuizPage implements ActionListener {
+    MysqlDeveloper developer = new MysqlDeveloper();
     Connection connection = null;
     Statement statement = null;
     ResultSet rs = null;
@@ -75,12 +78,12 @@ public class QuizPage implements ActionListener {
             e.printStackTrace();
         }
         timerBar.setValue(0);
-        timerBar.setBounds(10,5,550,15);
+        timerBar.setBounds(10,5,550,30);
         timerBar.setString("Timer");
         timerBar.setStringPainted(true);
         timerBar.setMaximum(59);
         progressBar.setValue(0);
-        progressBar.setBounds(10,25,550,15);
+        progressBar.setBounds(10,25,550,30);
         progressBar.setString("Progress");
         progressBar.setStringPainted(true);
         progressBar.setMaximum(10);
@@ -240,7 +243,7 @@ public class QuizPage implements ActionListener {
 
     public void buildQuiz() throws IOException{
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/quiz_system_database", "root", "123456");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:"+developer.getHostname()+"/quiz_system_database", developer.getUser(), developer.getPassword());
             statement = connection.createStatement();
             rs = statement.executeQuery("Select " + subject + "_difficulty From clients Where client_id ="+id);
             rs.next();
@@ -341,7 +344,7 @@ public class QuizPage implements ActionListener {
             }
             String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
             try {
-                connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/quiz_system_database", "root", "123456");
+                connection = DriverManager.getConnection("jdbc:mysql://localhost:"+developer.getHostname()+"/quiz_system_database", developer.getUser(), developer.getPassword());
                 statement = connection.createStatement();
                 timer.stop();
                 statement.executeUpdate("UPDATE quiz_system_database.clients SET " +subject+"_difficulty =" +nextQuizDiff+ " WHERE client_id =" + id);
