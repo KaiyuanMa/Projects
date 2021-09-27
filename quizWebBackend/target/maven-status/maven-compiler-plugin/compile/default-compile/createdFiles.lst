@@ -1,0 +1,10 @@
+com\example\demo\repository\userRepository.class
+com\example\demo\controller\QuestionController.class
+com\example\demo\DemoApplication.class
+com\example\demo\model\user.class
+com\example\demo\repository\questionRepository.class
+com\example\demo\service\userService.class
+com\example\demo\user\userRole.class
+com\example\demo\service\questionService.class
+com\example\demo\model\question.class
+com\example\demo\controller\userController.class
